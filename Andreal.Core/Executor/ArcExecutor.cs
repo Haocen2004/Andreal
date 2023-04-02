@@ -302,15 +302,7 @@ internal class ArcExecutor : ExecutorBase
         IBest30Data b30data;
         PlayerInfo playerInfo;
 
-        if (Command.Length > 0 && Command[0] == "official")
-        {
-            if (!ArcaeaLimitedApi.Available) return null!;
-            await Info.SendMessage(RobotReply.BestsQuerying);
-
-            playerInfo = new((await ArcaeaLimitedApi.Userinfo(User.ArcCode))!, User);
-            b30data = new LimitedBest30Data((await ArcaeaLimitedApi.Userbest30(User.ArcCode))!, playerInfo.Potential);
-        }
-        else
+        if (Command.Length > 0 && Command[0] == "aua")
         {
             await Info.SendMessage(RobotReply.BestsQuerying);
             var data = await ArcaeaUnlimitedApi.UserBest30(User.ArcCode);
@@ -318,6 +310,15 @@ internal class ArcExecutor : ExecutorBase
             var content = data.DeserializeContent<UserBestsContent>();
             b30data = new Best30Data(content);
             playerInfo = new(content.AccountInfo, User);
+        }
+        else
+        {
+            if (!ArcaeaLimitedApi.Available) return null!;
+            await Info.SendMessage(RobotReply.BestsQuerying);
+
+            playerInfo = new((await ArcaeaLimitedApi.Userinfo(User.ArcCode))!, User);
+            b30data = new LimitedBest30Data((await ArcaeaLimitedApi.Userbest30(User.ArcCode))!, playerInfo.Potential);
+
         }
 
         return await new ArcBest30ImageGenerator(b30data, playerInfo).Generate();

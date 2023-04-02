@@ -9,7 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Git\Konata.Core\Konata.Core\Konata.Core.csproj"/>
+        <ProjectReference Include="C:\Users\19811\Documents\GitHub\Konata.Core\Konata.Core\Konata.Core.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
